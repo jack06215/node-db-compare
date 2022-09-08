@@ -1,0 +1,19 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_CONN_STR")
+}
+
+model Company {
+    id           Int     @id @default(autoincrement())
+    tid          String  @unique
+    company_name String
+    subscription String?
+    json_field   Json?
+    revoke       Boolean @default(false)
+
+    @@map("companies")
+}
