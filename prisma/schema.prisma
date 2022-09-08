@@ -1,19 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("POSTGRES_CONN_STR")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model Company {
-    id           Int     @id @default(autoincrement())
-    tid          String  @unique
-    company_name String
-    subscription String?
-    json_field   Json?
-    revoke       Boolean @default(false)
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  tid          String   @unique
+  company_name String
+  subscription String?
+  json_field   Json?
+  revoke       Boolean  @default(false)
+  created_at   DateTime @default(now())
 
-    @@map("companies")
+  @@map("companies")
 }
